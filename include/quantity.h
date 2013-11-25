@@ -1,4 +1,4 @@
-/** Unit.h
+/** Quantity.h
  * This header contains the Quantity definition to use with the robots and
  * ensure consistenci among all the modules.
  *
@@ -22,10 +22,10 @@
 
 #include <iostream>
 
-namespace Quantity{
+namespace SI{
 
 
-   template<int L, int M ,int T,>struct Quantity{
+   template<int L, int M ,int T>struct Quantity{
       //enum{m=M,kg=K,s=S};
    };
 
@@ -200,5 +200,9 @@ namespace Quantity{
          return lhs.getVal()>rhs.getVal();
       }
 
+   //Defining MKS quantityes: Distance, Mass and Time
+   using Distance = Quantity<1,0,0>;
+   using Mass = Quantity<0,1,0>;
+   using Time = Quantity<0,0,1>;
 };
 #endif //QuantityS_H
