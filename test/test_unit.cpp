@@ -7,9 +7,9 @@
 #define BOOST_TEST_MODULE units test
 #include <boost/test/unit_test.hpp>
 #include <iostream>
-#include "quantity.h"
+#include "unit.h"
 
-using namespace SI;
+using namespace si;
 //using namespace Quantitys::Literals;
 //
 Unit<Quantity<1,0,0>> getUnit(double val)
@@ -73,7 +73,7 @@ Unit<Quantity<1,0,0>> getUnit(double val)
       //using Distance=Quantity<1,0,0>;
       //using Quantity<0,1,0> Weight;
       //using Time=Quantity<0,0,1>;
-      using Speed=Quantity<1,0,-1> ;
+      //using Speed=Quantity<1,0,-1> ;
 
       Unit<Quantity<1,0,0>> meters(10);
       Unit<Quantity<0,0,1>> seconds(5);

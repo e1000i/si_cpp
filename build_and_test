@@ -14,13 +14,21 @@ echo "Compiling...
      Libraries: -lboost_unit_test_framework -lstdc++ 
      Includes: -I$wd/include/ -
                -I$wd/test/ 
-     Sources: test/test_unit.cpp
-     Build to: -o build/test_units" 
+     Sources: test/test_unit.cpp test/test_meter.cpp
+     Build to: -o build/test_units build/test_meter" 
 gcc -Wall -Wextra -std=c++0x -o build/test_units test/test_unit.cpp -lboost_unit_test_framework -lstdc++ -I$wd/include/ -I$wd/test/ 
 
+gcc -Wall -Wextra -std=c++0x -o build/test_meter test/test_meter.cpp -lboost_unit_test_framework -lstdc++ -I$wd/include/ -I$wd/test/ 
 echo
 echo Executing Test
 echo --------------
+echo Unit test of Unit template:
 ./build/test_units
+echo
+echo Unit test for meter namespace:
+./build/test_meter
 
+echo
+echo Press a key to close.
 read -n 1 -s
+

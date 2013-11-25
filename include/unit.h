@@ -22,7 +22,7 @@
 
 #include <iostream>
 
-namespace SI{
+namespace si{
 
 
    template<int L, int M ,int T>struct Quantity{
@@ -35,12 +35,11 @@ namespace SI{
          public:
             //* constructors 
             explicit constexpr Unit(double d=0.0):val(d){}
-            Unit(const Unit& x):val(x.val){} //copy constructor
-            Unit(Unit&& other)
+           constexpr Unit(const Unit& x):val(x.val){} //copy constructor
+           Unit(Unit&& other)
             {
                swap(other); 
             }
-            ~Unit(){}
             //Assignament operator overload
             Unit& operator=(const Unit& rhs)
             {
@@ -95,7 +94,7 @@ namespace SI{
 
             //*maniputaltion
             //
-            double getVal() const
+            constexpr double getVal() const
             {
                return val;
             }
@@ -121,41 +120,41 @@ namespace SI{
       };
    //* Math Operators 
    template <int L, int M, int T, template<int L,int  M,int T> class Quantity>
-      Unit<Quantity<L,M,T>> operator+(const Unit<Quantity<L,M,T>>& lhs, const Unit<Quantity<L,M,T>>& rhs)
+   constexpr   Unit<Quantity<L,M,T>> operator+(const Unit<Quantity<L,M,T>>& lhs, const Unit<Quantity<L,M,T>>& rhs)
       {
          return Unit<Quantity<L,M,T>>(lhs)+=rhs;
       }
    template <int L, int M, int T, template<int L,int  M,int T> class Quantity>
-      Unit<Quantity<M,L,T>> operator-(const Unit<Quantity<M,L,T>>& lhs, const Unit<Quantity<M,L,T>>& rhs)
+    constexpr Unit<Quantity<M,L,T>> operator-(const Unit<Quantity<M,L,T>>& lhs, const Unit<Quantity<M,L,T>>& rhs)
       {
          return Unit<Quantity<M,L,T>>(lhs)-=rhs;
       }
 
    template <int M1, int L1, int T1, int M2, int L2, int T2>
-      Unit<Quantity<M1+M2,L1+L2,T1+T2>> operator*(const Unit<Quantity<M1,L1,T1>>& lhs, const Unit<Quantity<M2,L2,T2>>& rhs)
+    constexpr Unit<Quantity<M1+M2,L1+L2,T1+T2>> operator*(const Unit<Quantity<M1,L1,T1>>& lhs, const Unit<Quantity<M2,L2,T2>>& rhs)
       {
          return Unit<Quantity<M1+M2,L1+L2,T1+T2>>(lhs.getVal()*rhs.getVal());
       }
    template <int L, int M, int T, template<int L,int  M,int T> class Quantity>
-      Unit<Quantity<L,M,T>> operator*(const double& lhs, const Unit<Quantity<L,M,T>>& rhs)
+    constexpr Unit<Quantity<L,M,T>> operator*(const double& lhs, const Unit<Quantity<L,M,T>>& rhs)
       {
          return Unit<Quantity<L,M,T>>(lhs*rhs.getVal());
       }
    template <int L, int M, int T, template<int L,int  M,int T> class Quantity>
-      Unit<Quantity<L,M,T>> operator*(const Unit<Quantity<L,M,T>>& lhs, const double&rhs)
+    constexpr Unit<Quantity<L,M,T>> operator*(const Unit<Quantity<L,M,T>>& lhs, const double&rhs)
       {
          return Unit<Quantity<L,M,T>>(lhs.getVal()*rhs);
       }
 
    template <int M1, int L1, int T1, int M2, int L2, int T2>
-      Unit<Quantity<M1-M2,L1-L2,T1-T2>> operator/(const Unit<Quantity<M1,L1,T1>>& lhs, 
+     constexpr Unit<Quantity<M1-M2,L1-L2,T1-T2>> operator/(const Unit<Quantity<M1,L1,T1>>& lhs, 
             const Unit<Quantity<M2,L2,T2>>& rhs)
       {
          return Unit<Quantity<M1-M2,L1-L2,T1-T2>>(lhs.getVal()/rhs.getVal());
       }
 
    template <int L, int M, int T, template<int L,int  M,int T> class Quantity>
-      Unit<Quantity<-L, -M, -T>> operator/(double x, const Unit<Quantity<L,M,T>>& rhs)
+      constexpr Unit<Quantity<-L, -M, -T>> operator/(double x, const Unit<Quantity<L,M,T>>& rhs)
       {
          return Unit<Quantity<-L,-M,-T>>(x/rhs.getVal());
       }
@@ -168,34 +167,34 @@ namespace SI{
    //* Logical Operators
 
    template <int L, int M, int T, template<int L,int  M,int T> class Quantity>
-      bool operator==(const Unit<Quantity<L,M,T>>& lhs, const Unit<Quantity<L,M,T>>& rhs)
+    constexpr  bool operator==(const Unit<Quantity<L,M,T>>& lhs, const Unit<Quantity<L,M,T>>& rhs)
       {
          return (lhs.getVal()==rhs.getVal());
       }
 
    template <int L, int M, int T, template<int L,int  M,int T> class Quantity>
-      bool operator!=(const Unit<Quantity<L,M,T>>& lhs, const Unit<Quantity<L,M,T>>& rhs)
+    constexpr  bool operator!=(const Unit<Quantity<L,M,T>>& lhs, const Unit<Quantity<L,M,T>>& rhs)
       {
          return (lhs.getVal()!=rhs.getVal());
       }
 
    template <int L, int M, int T, template<int L,int  M,int T> class Quantity>
-      bool operator<=(const Unit<Quantity<L,M,T>>& lhs, const Unit<Quantity<L,M,T>>& rhs)
+    constexpr  bool operator<=(const Unit<Quantity<L,M,T>>& lhs, const Unit<Quantity<L,M,T>>& rhs)
       {
          return lhs.getVal()<=rhs.getVal();
       }
    template <int L, int M, int T, template<int L,int  M,int T> class Quantity>
-      bool operator>=(const Unit<Quantity<L,M,T>>& lhs, const Unit<Quantity<L,M,T>>& rhs)
+    constexpr  bool operator>=(const Unit<Quantity<L,M,T>>& lhs, const Unit<Quantity<L,M,T>>& rhs)
       {
          return lhs.getVal()>=rhs.getVal();
       }
    template <int L, int M, int T, template<int L,int  M,int T> class Quantity>
-      bool operator< (const Unit<Quantity<L,M,T>>& lhs, const Unit<Quantity<L,M,T>>& rhs)
+    constexpr bool operator< (const Unit<Quantity<L,M,T>>& lhs, const Unit<Quantity<L,M,T>>& rhs)
       {
          return lhs.getVal()<rhs.getVal();
       }
    template <int L, int M, int T, template<int L,int  M,int T> class Quantity>
-      bool operator> (const Unit<Quantity<L,M,T>>& lhs, const Unit<Quantity<L,M,T>>& rhs)
+    constexpr bool operator> (const Unit<Quantity<L,M,T>>& lhs, const Unit<Quantity<L,M,T>>& rhs)
       {
          return lhs.getVal()>rhs.getVal();
       }
@@ -204,5 +203,8 @@ namespace SI{
    using Distance = Quantity<1,0,0>;
    using Mass = Quantity<0,1,0>;
    using Time = Quantity<0,0,1>;
+
+   using Speed = Quantity<1,0,-1>;
+   using Acceleration = Quantity<1,0,-2>;
 };
 #endif //QuantityS_H
